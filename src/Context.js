@@ -32,9 +32,16 @@ export default class ItemProvider extends Component {
     return tempItems;
   }
 
+  getItem = slug => {
+    let tempItems = [...this.state.items];
+
+    const item = tempItems.find(item => item.slug === slug);
+    return item;
+  };
+
   render() {
     return (
-      <ItemContext.Provider value={{ ...this.state }}>
+      <ItemContext.Provider value={{ ...this.state, getItem: this.getItem }}>
         {this.props.children}
       </ItemContext.Provider>
     );
