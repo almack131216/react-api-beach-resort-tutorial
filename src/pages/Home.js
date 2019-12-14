@@ -11,7 +11,7 @@ export default function Home() {
       <Hero>
         <Banner title="Home" subtitle="Blah blah">
           <Link to="/items" className="btn-primary">
-            Cars
+            Items
           </Link>
         </Banner>
       </Hero>
