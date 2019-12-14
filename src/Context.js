@@ -50,4 +50,14 @@ export default class ItemProvider extends Component {
 
 const ItemConsumer = ItemContext.Consumer;
 
+export function withItemConsumer(Component) {
+  return function ConsumerWrapper(props) {
+    return (
+      <ItemConsumer>
+        {value => <Component {...props} context={value} />}
+      </ItemConsumer>
+    );
+  };
+}
+
 export { ItemProvider, ItemConsumer, ItemContext };
