@@ -19,7 +19,7 @@ export default function ItemsFilter({ items }) {
     minPrice,
     maxPrice,
     minSize,
-    maxSizem,
+    maxSize,
     breakfast,
     pets
   } = context;
@@ -79,12 +79,72 @@ export default function ItemsFilter({ items }) {
           </select>
         </div>
         {/* (END) select guests */}
-        {/* room price */}
+        {/* price */}
         <div class="form-group">
-          <label htmlFor="price">price room price ${price}</label>
-          <input type="range" name="price" min={minPrice} max={maxPrice} id="price" value={price} onChange={handleChange} className="form-control"/>
+          <label htmlFor="price">price price ${price}</label>
+          <input
+            type="range"
+            name="price"
+            min={minPrice}
+            max={maxPrice}
+            id="price"
+            value={price}
+            onChange={handleChange}
+            className="form-control"
+          />
         </div>
-        {/* (END) room price */}
+        {/* (END) price */}
+        {/* size */}
+        <div className="form-group">
+          <label htmlFor="size">size</label>
+          <div className="size-inputs">
+            <input
+              type="number"
+              name="minSize"
+              id="size"
+              value={minSize}
+              onChange={handleChange}
+              className="size-input"
+            />
+            <input
+              type="number"
+              name="maxSize"
+              id="size"
+              value={maxSize}
+              onChange={handleChange}
+              className="size-input"
+            />
+          </div>
+        </div>
+        {/* (END) size */}
+        {/* extras */}
+        <div class="form-group">
+          {/* breakfast */}
+          <div class="single-extra">
+            <input
+              type="checkbox"
+              name="breakfast"
+              id="breakfast"
+              checked={breakfast}
+              onChange={handleChange}
+            />
+            <label htmlFor="breakfast">breakfast</label>
+          </div>
+          {/* (END) breakfast */}
+          {/* pets */}
+          <div class="single-extra">
+            <input
+              type="checkbox"
+              name="pets"
+              id="pets"
+              checked={pets}
+              onChange={handleChange}
+            />
+            <label htmlFor="pets">pets</label>
+          </div>
+          {/* (END) pets */}
+        </div>
+        {/* (END) extras */}
       </form>
     </section>
   );

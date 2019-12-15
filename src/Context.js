@@ -57,7 +57,7 @@ export default class ItemProvider extends Component {
 
   handleChange = event => {
     const target = event.target;
-    const value = event.type === "checkbox" ? target.checked : target.value;
+    const value = target.type === "checkbox" ? target.checked : target.value;
     const name = event.target.name;
     // const value = event.target.value;
     // console.log("[Context.js] handleChange > this is type..." + type);
@@ -99,7 +99,22 @@ export default class ItemProvider extends Component {
 
     // filter by price
     tmpItems = tmpItems.filter(item => item.price <= price);
-    
+
+    // filter by size
+    tmpItems = tmpItems.filter(
+      item => item.size >= minSize && item.size <= maxSize
+    );
+
+    // filter by breakfast
+    if (breakfast) {
+      tmpItems = tmpItems.filter(item => item.breakfast === true);
+    }
+
+    // filter by size
+    if (pets) {
+      tmpItems = tmpItems.filter(item => item.pets === true);
+    }
+
     // change state
     this.setState({
       sortedItems: tmpItems
