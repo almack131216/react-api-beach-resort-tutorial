@@ -92,10 +92,15 @@ export default class ItemProvider extends Component {
     if (type !== "all") {
       tmpItems = tmpItems.filter(item => item.type === type);
     }
-    //filter by capacity
+    // filter by capacity
     if (capacity !== 1) {
       tmpItems = tmpItems.filter(item => item.capacity >= capacity);
     }
+
+    // filter by price
+    tmpItems = tmpItems.filter(item => item.price <= price);
+    
+    // change state
     this.setState({
       sortedItems: tmpItems
     });
