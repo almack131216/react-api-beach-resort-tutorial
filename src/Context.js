@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Data from "./data";
+// import Data from "./data";
+import Client from "./Contentful";
+
 const ItemContext = React.createContext();
 //
 export default class ItemProvider extends Component {
@@ -18,24 +20,39 @@ export default class ItemProvider extends Component {
     breakfast: false,
     pets: false
   };
+
+  getData = async () => {
+    try {
+      let response = await Client.getEntries({
+        content_type: "beachResortRoomExample",
+        // order: "sys.createdAt"
+        order: "-fields.price"
+      });
+      console.log("[Context.js] getData > success!");
+
+      let items = this.formatData(response.items);
+      console.log("[Context.js] items...", items);
+      let featuredItems = items.filter(item => item.featured === true);
+
+      let maxPrice = Math.max(...items.map(item => item.price));
+      let maxSize = Math.max(...items.map(item => item.size));
+
+      this.setState({
+        items,
+        featuredItems,
+        sortedItems: items,
+        loading: false,
+        price: maxPrice,
+        maxPrice: maxPrice,
+        maxSize: maxSize
+      });
+    } catch (error) {
+      console.log("[Context.js] getData > error...", error);
+    }
+  };
   // getData
   componentDidMount() {
-    let items = this.formatData(Data);
-    console.log("[Context.js] items...", items);
-    let featuredItems = items.filter(item => item.featured === true);
-
-    let maxPrice = Math.max(...items.map(item => item.price));
-    let maxSize = Math.max(...items.map(item => item.size));
-
-    this.setState({
-      items,
-      featuredItems,
-      sortedItems: items,
-      loading: false,
-      price: maxPrice,
-      maxPrice: maxPrice,
-      maxSize: maxSize
-    });
+    this.getData();
   }
 
   formatData(Data) {

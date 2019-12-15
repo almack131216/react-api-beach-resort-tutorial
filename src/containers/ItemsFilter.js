@@ -80,7 +80,7 @@ export default function ItemsFilter({ items }) {
         </div>
         {/* (END) select guests */}
         {/* price */}
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="price">price price ${price}</label>
           <input
             type="range"
@@ -118,9 +118,9 @@ export default function ItemsFilter({ items }) {
         </div>
         {/* (END) size */}
         {/* extras */}
-        <div class="form-group">
+        <div className="form-group">
           {/* breakfast */}
-          <div class="single-extra">
+          <div className="single-extra">
             <input
               type="checkbox"
               name="breakfast"
@@ -132,7 +132,7 @@ export default function ItemsFilter({ items }) {
           </div>
           {/* (END) breakfast */}
           {/* pets */}
-          <div class="single-extra">
+          <div className="single-extra">
             <input
               type="checkbox"
               name="pets"
