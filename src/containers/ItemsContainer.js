@@ -4,7 +4,7 @@ import ItemsList from "../components/ItemsList";
 import { withItemConsumer } from "../Context";
 import Loading from "../components/Loading";
 
-function ItemContainer({ context }) {
+function ItemsContainer({ context }) {
   const { loading, sortedItems, items } = context;
   if (loading) {
     return <Loading />;
@@ -17,7 +17,7 @@ function ItemContainer({ context }) {
   );
 }
 
-export default withItemConsumer(ItemContainer);
+export default withItemConsumer(ItemsContainer);
 
 // import React from "react";
 // import ItemsFilter from "./ItemsFilter";

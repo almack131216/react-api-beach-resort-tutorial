@@ -7,18 +7,34 @@ export default class ItemProvider extends Component {
     items: [],
     sortedItems: [],
     featuredItems: [],
-    loading: true
+    loading: true,
+    type: "all",
+    capacity: 1,
+    price: 0,
+    minPrice: 0,
+    maxPrice: 0,
+    minSize: 0,
+    maxSize: 0,
+    breakfast: false,
+    pets: false
   };
   // getData
   componentDidMount() {
     let items = this.formatData(Data);
     console.log("[Context.js] items...", items);
     let featuredItems = items.filter(item => item.featured === true);
+
+    let maxPrice = Math.max(...items.map(item => item.price));
+    let maxSize = Math.max(...items.map(item => item.size));
+
     this.setState({
       items,
       featuredItems,
       sortedItems: items,
-      loading: false
+      loading: false,
+      price: maxPrice,
+      maxPrice: maxPrice,
+      maxSize: maxSize
     });
   }
 
@@ -39,9 +55,53 @@ export default class ItemProvider extends Component {
     return item;
   };
 
+  handleChange = event => {
+    const target = event.target;
+    const value = event.type === "checkbox" ? target.checked : target.value;
+    const name = event.target.name;
+    // const value = event.target.value;
+    // console.log("[Context.js] handleChange > this is type..." + type);
+    console.log("[Context.js] handleChange > this is name..." + name);
+    // console.log("[Context.js] handleChange > this is value..." + value);
+    this.setState(
+      {
+        [name]: value
+      },
+      this.filterItems
+    );
+  };
+
+  filterItems = () => {
+    console.log("[Context.js] filterItems > hello");
+    let {
+      items,
+      type,
+      capacity,
+      price,
+      minSize,
+      maxSize,
+      breakfast,
+      pets
+    } = this.state;
+
+    let tmpItems = [...items];
+    if (type !== "all") {
+      tmpItems = tmpItems.filter(item => item.type === type);
+    }
+    this.setState({
+      sortedItems: tmpItems
+    });
+  };
+
   render() {
     return (
-      <ItemContext.Provider value={{ ...this.state, getItem: this.getItem }}>
+      <ItemContext.Provider
+        value={{
+          ...this.state,
+          getItem: this.getItem,
+          handleChange: this.handleChange
+        }}
+      >
         {this.props.children}
       </ItemContext.Provider>
     );
