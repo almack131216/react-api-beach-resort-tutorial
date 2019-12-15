@@ -84,9 +84,17 @@ export default class ItemProvider extends Component {
       pets
     } = this.state;
 
+    // all the rooms
     let tmpItems = [...items];
+    // transform values
+    capacity = parseInt(capacity);
+    // filter by type
     if (type !== "all") {
       tmpItems = tmpItems.filter(item => item.type === type);
+    }
+    //filter by capacity
+    if (capacity !== 1) {
+      tmpItems = tmpItems.filter(item => item.capacity >= capacity);
     }
     this.setState({
       sortedItems: tmpItems
